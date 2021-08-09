@@ -1,10 +1,10 @@
 #!groovy
-// Check ub1 properties
+// Check master2 properties
 properties([disableConcurrentBuilds()])
 
 pipeline {
     agent { 
-        label 'master'
+        label 'master2'
         }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
@@ -13,12 +13,12 @@ pipeline {
     stages {
         stage("First step") {
             steps {
-                sh 'ssh root@ub1 \'hostname\''
+                sh 'ssh root@master2 \'hostname\''
             }
         }
         stage("Second step") {
             steps {
-                sh 'ssh root@ub1 \'uptime\''
+                sh 'ssh root@master2 \'uptime\''
             }
         }
     }
