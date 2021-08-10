@@ -6,6 +6,7 @@ pipeline {
     agent { 
         label 'master'
         }
+        //test for local
     triggers { pollSCM('* * * * *') }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
@@ -30,6 +31,10 @@ pipeline {
                     sh 'docker build . '
                 }
             }
+            steps {
+                 sh 'ssh root@master2 \'uptime\''
+                }
+            
         }
         // stage("docker push") {
         //     steps {
