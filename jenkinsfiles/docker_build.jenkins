@@ -12,7 +12,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
-    stages {
+   
         // stage("docker login") {
         //     steps {
         //         echo " ============== docker login =================="
@@ -23,6 +23,7 @@ pipeline {
         //         }
         //     }
         // }
+    stages {
         stage("create docker image") {
             steps {
                 echo " ============== start building image =================="
@@ -31,12 +32,7 @@ pipeline {
                     sh 'docker build . '
                 }
             }
-        stage("Test env"){
-            steps {
-                 sh 'ssh root@master2 \'uptime\''
-                }
-        }
-            }
+        
         }
         // stage("docker push") {
         //     steps {
@@ -47,4 +43,4 @@ pipeline {
         //     }
         // }
     }
-    
+    }
