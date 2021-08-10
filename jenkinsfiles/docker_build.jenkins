@@ -31,10 +31,12 @@ pipeline {
                     sh 'docker build . '
                 }
             }
+        stage("Test env"){
             steps {
                  sh 'ssh root@master2 \'uptime\''
                 }
-            
+        }
+            }
         }
         // stage("docker push") {
         //     steps {
