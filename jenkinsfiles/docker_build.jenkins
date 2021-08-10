@@ -14,14 +14,32 @@ pipeline {
     }
    
     stages {
+        stage("docker login"){
+            steps{
+                echo "=============== docker login ==============="
+                withCredentials([usernamePassword(credentialsId:'dockerhub_atilla',usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
+                    sh """
+                        docker login -u $USERNAME -p $PASSWORD
+                       """
+                }
+            }
+        }
         stage("create docker image") {
             steps {
                 echo " ============== start building image =================="
                 dir ('docker/toolbox') {
-                       sh 'docker build -t amazon:latest . '
+                       sh 'docker build -t atilla2019/amazon:latest . '
                 }
             }  
         }
         
+        stage("docker push"){
+            steps{
+                echo " ==================== start pushing image =============="
+                    sh """
+                        docker push atilla2019/amazon:latest
+                    """
+            }
+        }
     }
 }
